@@ -19,9 +19,26 @@ let humanScore = 0;
 let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
+
     if (humanChoice === computerChoice) {
         console.log("Draw!");
+
+    } else if (humanChoice === "rock" && computerChoice === "paper"
+        || humanChoice === "paper" && computerChoice === "scissors"
+        || humanChoice === "scissors" && computerChoice === "rock") {
+        console.log(`${computerChoice} beats ${humanChoice} | Computer Wins!`);
+         ++computerScore;
+
+    } else if (computerChoice === "rock" && humanChoice === "paper"
+        || computerChoice === "paper" && humanChoice === "scissors"
+        || computerChoice === "scissors" && humanChoice === "rock") {
+        console.log(`${humanChoice} beats ${computerChoice} | Player Wins!`);
+        ++humanScore;
+
+    } else {
+        alert("Invalid choice!");
     }
+
 }
 
 const humanSelection = getHumanChoice();
