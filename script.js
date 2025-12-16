@@ -21,8 +21,10 @@ let humanScore = 0;
 let computerScore = 0;
 
     function playRound(humanChoice, computerChoice) {
-        
-        console.log(`Round ${i + 1}\nPlayer: ${humanChoice} | Computer: ${computerChoice}`);
+
+        const cap = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+        console.log(
+        `Round ${i + 1}\nPlayer: ${cap(humanChoice)} | Computer: ${cap(computerChoice)}`);
         
         if (humanChoice === computerChoice) {
             console.log("Draw!");
@@ -30,13 +32,13 @@ let computerScore = 0;
         } else if ((humanChoice === "rock" && computerChoice === "paper")
             || (humanChoice === "paper" && computerChoice === "scissors")
             || (humanChoice === "scissors" && computerChoice === "rock")) {
-            console.log(`${computerChoice} beats ${humanChoice} | Computer Wins!`);
+            console.log(`${cap(computerChoice)} beats ${cap(humanChoice)} | Computer Wins!`);
             ++computerScore;
 
         } else if ((computerChoice === "rock" && humanChoice === "paper")
             || (computerChoice === "paper" && humanChoice === "scissors")
             || (computerChoice === "scissors" && humanChoice === "rock")) {
-            console.log(`${humanChoice} beats ${computerChoice} | Player Wins!`);
+            console.log(`${cap(humanChoice)} beats ${cap(computerChoice)} | Player Wins!`);
             ++humanScore;
 
         } else {
@@ -50,8 +52,21 @@ let computerScore = 0;
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
         playRound(humanSelection, computerSelection);
-
     }
+
+    function getFinalResult(humanScore, computerScore) {
+        if(humanScore === computerScore) {
+            return "Draw!";
+        } else if (humanScore > computerScore) {
+            return "You Win!";
+        } else {
+            return "You Lost!";
+        }
+    }
+
+    const finalScoreMessage = getFinalResult(humanScore, computerScore);
+    alert(
+    `${finalScoreMessage}\n\nFinal Score\nPlayer: ${humanScore} | Computer: ${computerScore}`);
 }
 
 playGame();
