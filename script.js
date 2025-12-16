@@ -1,68 +1,67 @@
 function getComputerChoice() {
+    
     const choice = Math.floor(Math.random() * 3);
     switch (choice) {
         case 0:
-        return "rock"
+        return "rock";
         case 1:
-        return "paper"
+        return "paper";
         default:
-        return"scissors"
+        return "scissors";
     }
 }
 
 function getHumanChoice() {
-    const input = prompt("Rock, Paper or Scissors?");
+
+    const input = prompt("Rock, Paper or Scissors?") || getComputerChoice();
     return input.toLowerCase();
 }
 
 function playGame() {
 
-let humanScore = 0;
-let computerScore = 0;
+    let humanScore = 0;
+    let computerScore = 0;
+    const cap = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-    function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice, computerChoice, roundNumber) {
 
-        const cap = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-        console.log(
-        `Round ${i + 1}\nPlayer: ${cap(humanChoice)} | Computer: ${cap(computerChoice)}`);
+    console.log(
+    `Round ${roundNumber}\nPlayer: ${cap(humanChoice)} | Computer: ${cap(computerChoice)}`);
         
-        if (humanChoice === computerChoice) {
-            console.log("Draw!");
+    if (humanChoice === computerChoice) {
+        console.log("Draw!");
 
-        } else if ((humanChoice === "rock" && computerChoice === "paper")
-            || (humanChoice === "paper" && computerChoice === "scissors")
-            || (humanChoice === "scissors" && computerChoice === "rock")) {
-            console.log(`${cap(computerChoice)} beats ${cap(humanChoice)} | Computer Wins!`);
-            ++computerScore;
+    } else if ((humanChoice === "rock" && computerChoice === "paper")
+        || (humanChoice === "paper" && computerChoice === "scissors")
+        || (humanChoice === "scissors" && computerChoice === "rock")) {
+        console.log(`${cap(computerChoice)} beats ${cap(humanChoice)} | Computer Wins!`);
+        ++computerScore;
 
-        } else if ((computerChoice === "rock" && humanChoice === "paper")
-            || (computerChoice === "paper" && humanChoice === "scissors")
-            || (computerChoice === "scissors" && humanChoice === "rock")) {
-            console.log(`${cap(humanChoice)} beats ${cap(computerChoice)} | Player Wins!`);
-            ++humanScore;
-
-        } else {
-            alert("Invalid choice!");
-        }
-        console.log(`Score\nPlayer: ${humanScore} | Computer: ${computerScore}`);
+    } else {
+        console.log(`${cap(humanChoice)} beats ${cap(computerChoice)} | Player Wins!`);
+        ++humanScore;
     }
 
-    let i = 0;
-    for (;i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-    }
+    console.log(`Score\nPlayer: ${humanScore} | Computer: ${computerScore}`);
+}
 
-    function getFinalResult(humanScore, computerScore) {
-        if(humanScore === computerScore) {
-            return "Draw!";
-        } else if (humanScore > computerScore) {
-            return "You Win!";
-        } else {
-            return "You Lost!";
-        }
+for (let i = 0;i < 5; i++) {
+
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection, i + 1);
+}
+
+function getFinalResult(humanScore, computerScore) {
+
+    if(humanScore === computerScore) {
+        return "Draw!";
+    } else if (humanScore > computerScore) {
+        return "You Win!";
+    } else {
+        return "You Lost!";
     }
+}
 
     const finalScoreMessage = getFinalResult(humanScore, computerScore);
     alert(
