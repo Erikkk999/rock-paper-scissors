@@ -1,3 +1,5 @@
+const playerChoices = document.querySelectorAll(".button-container button");
+
 function getComputerChoice() {
     
     const choice = Math.floor(Math.random() * 3);
@@ -11,22 +13,25 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-
-    const input = prompt("Rock, Paper or Scissors?") || getComputerChoice();
-    return input.toLowerCase();
-}
-
 function playGame() {
+
+    playerChoices.forEach((choice) => {
+        choice.addEventListener("click", () => {
+            const playerChoice = choice.id;
+            const computerChoice = getComputerChoice();
+            const result = playRound(playerChoice, computerChoice);
+        });
+    });
+
 
     let humanScore = 0;
     let computerScore = 0;
-    const cap = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+    const CAP = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 function playRound(humanChoice, computerChoice, roundNumber) {
 
     console.log(
-    `Round ${roundNumber}\nPlayer: ${cap(humanChoice)} | Computer: ${cap(computerChoice)}`);
+    `Round ${roundNumber}\nPlayer: ${CAP(humanChoice)} | Computer: ${CAP(computerChoice)}`);
         
     if (humanChoice === computerChoice) {
         console.log("Draw!");
@@ -34,22 +39,15 @@ function playRound(humanChoice, computerChoice, roundNumber) {
     } else if ((humanChoice === "rock" && computerChoice === "paper")
         || (humanChoice === "paper" && computerChoice === "scissors")
         || (humanChoice === "scissors" && computerChoice === "rock")) {
-        console.log(`${cap(computerChoice)} beats ${cap(humanChoice)} | Computer Wins!`);
+        console.log(`${CAP(computerChoice)} beats ${CAP(humanChoice)} | Computer Wins!`);
         ++computerScore;
 
     } else {
-        console.log(`${cap(humanChoice)} beats ${cap(computerChoice)} | Player Wins!`);
+        console.log(`${CAP(humanChoice)} beats ${CAP(computerChoice)} | Player Wins!`);
         ++humanScore;
     }
 
     console.log(`Score\nPlayer: ${humanScore} | Computer: ${computerScore}`);
-}
-
-for (let i = 0;i < 5; i++) {
-
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection, i + 1);
 }
 
 function getFinalResult(humanScore, computerScore) {
@@ -64,8 +62,6 @@ function getFinalResult(humanScore, computerScore) {
 }
 
     const finalScoreMessage = getFinalResult(humanScore, computerScore);
-    alert(
-    `${finalScoreMessage}\n\nFinal Score\nPlayer: ${humanScore} | Computer: ${computerScore}`);
 }
 
 playGame();
