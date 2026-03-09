@@ -1,7 +1,13 @@
 const playerChoices = document.querySelectorAll(".button-container button");
+const playerDisplay = document.querySelector(".player-score");
+const computerDisplay = document.querySelector(".computer-score");
+const roundNumber = document.querySelector(".invitation");
+const roundWinner = document.querySelector(".rule");
+const choice = document.querySelector(".choice");
 
 let humanScore = 0;
 let computerScore = 0;
+let round = 0;
 
 const CAP = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -25,44 +31,27 @@ function playGame() {
             const playerChoice = choice.id;
             const computerChoice = getComputerChoice();
             const result = playRound(playerChoice, computerChoice);
+            round++
         });
     });
 }
 
-function playRound(humanChoice, computerChoice, roundNumber) {
-
-    console.log(
-    `Round ${roundNumber}\nPlayer: ${CAP(humanChoice)} | Computer: ${CAP(computerChoice)}`);
+function playRound(humanChoice, computerChoice) {
         
     if (humanChoice === computerChoice) {
-        console.log("Draw!");
+        return "draw";
 
     } else if ((humanChoice === "rock" && computerChoice === "paper")
         || (humanChoice === "paper" && computerChoice === "scissors")
         || (humanChoice === "scissors" && computerChoice === "rock")) {
-        console.log(`${CAP(computerChoice)} beats ${CAP(humanChoice)} | Computer Wins!`);
-        ++computerScore;
+         ++computerScore;
+        return "computer";
 
     } else {
-        console.log(`${CAP(humanChoice)} beats ${CAP(computerChoice)} | Player Wins!`);
         ++humanScore;
-    }
-
-    console.log(`Score\nPlayer: ${humanScore} | Computer: ${computerScore}`);
-}
-
-function getFinalResult(humanScore, computerScore) {
-
-    if(humanScore === computerScore) {
-        return "Draw!";
-    } else if (humanScore > computerScore) {
-        return "You Win!";
-    } else {
-        return "You Lost!";
+        return "human";
     }
 }
-
-    // const finalScoreMessage = getFinalResult(humanScore, computerScore);
 
 
 playGame();
