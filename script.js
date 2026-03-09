@@ -1,5 +1,10 @@
 const playerChoices = document.querySelectorAll(".button-container button");
 
+let humanScore = 0;
+let computerScore = 0;
+
+const CAP = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
 function getComputerChoice() {
     
     const choice = Math.floor(Math.random() * 3);
@@ -22,11 +27,7 @@ function playGame() {
             const result = playRound(playerChoice, computerChoice);
         });
     });
-
-
-    let humanScore = 0;
-    let computerScore = 0;
-    const CAP = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function playRound(humanChoice, computerChoice, roundNumber) {
 
@@ -61,7 +62,7 @@ function getFinalResult(humanScore, computerScore) {
     }
 }
 
-    const finalScoreMessage = getFinalResult(humanScore, computerScore);
-}
+    // const finalScoreMessage = getFinalResult(humanScore, computerScore);
+
 
 playGame();
