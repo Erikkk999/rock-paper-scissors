@@ -1,5 +1,5 @@
 * {
-    margin: 10px;
+    margin: 0;
     padding: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 25px;
@@ -26,14 +26,14 @@ h1 {
 .header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
-    
+    margin: 40px 0px;
 }
 
 .score-display {
     text-align: right;
-    margin: 0px 50px;
+    margin: 0px 0px;
 
 }
 
@@ -51,6 +51,7 @@ h1 {
     outline: none;
     transition: 0.10s all;
     text-shadow: none;
+    margin: 40px;
 }
 
  .btn:active {
