@@ -13,6 +13,7 @@ choiceContainer.appendChild(context);
 let humanScore = 0;
 let computerScore = 0;
 let round = 0;
+let isGameActive = true;
 
 const CAP = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -33,11 +34,15 @@ function playGame() {
 
     playerChoices.forEach((choice) => {
         choice.addEventListener("click", () => {
+            if (!isGameActive) {
+                return;
+            }
             const playerChoice = choice.id;
             const computerChoice = getComputerChoice();
             const result = playRound(playerChoice, computerChoice);
             round++
             updateDisplay(result, playerChoice, computerChoice);
+            checkGameOver();
         });
     });
 }
@@ -81,6 +86,24 @@ function updateDisplay(result, playerChoice, computerChoice) {
         context.textContent = `${CAP(playerChoice)} beats ${CAP(computerChoice)}`;
         roundWinner.textContent = "Player Wins the Round!";
     }
+}
+
+function checkGameOver() {
+
+    if (round < 5) return;
+
+    isGameActive = false;
+
+    let finalMessage = "";
+    if (humanScore > computerScore) finalMessage = "You Won!";
+    else if (computerScore > humanScore) finalMessage = "You Lost!";
+    else finalMessage = "It's a Tie!";
+
+    roundNumber.textContent = "Game Over";
+    roundWinner.textContent = `${finalMessage}`;
+    choice.textContent = "Click any button to reset the game";
+    context.textContent = "";
+
 }
 
 playGame();
