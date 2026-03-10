@@ -8,8 +8,6 @@ const choice = document.querySelector(".choice");
 const context = document.createElement("p");
 choiceContainer.appendChild(context);
 
-
-
 let humanScore = 0;
 let computerScore = 0;
 let round = 0;
@@ -35,6 +33,7 @@ function playGame() {
     playerChoices.forEach((choice) => {
         choice.addEventListener("click", () => {
             if (!isGameActive) {
+                resetGame();
                 return;
             }
             const playerChoice = choice.id;
@@ -103,7 +102,20 @@ function checkGameOver() {
     roundWinner.textContent = `${finalMessage}`;
     choice.textContent = "Click any button to reset the game";
     context.textContent = "";
+}
 
+function resetGame() {
+
+    computerScore = 0;
+    humanScore = 0;
+    round = 0;
+    isGameActive = true;
+
+    roundNumber.textContent = "Let's play Again!";
+    roundWinner.textContent = "Best out of Five";
+    choice.textContent = "Make Your Move";
+    playerScoreDisplay.textContent = "Player: 0";
+    compScoreDisplay.textContent = "Computer: 0";
 }
 
 playGame();
