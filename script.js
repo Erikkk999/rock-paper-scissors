@@ -1,9 +1,14 @@
 const playerChoices = document.querySelectorAll(".button-container button");
-const playerDisplay = document.querySelector(".player-score");
-const computerDisplay = document.querySelector(".computer-score");
+const playerScoreDisplay = document.querySelector(".player-score");
+const compScoreDisplay = document.querySelector(".computer-score");
 const roundNumber = document.querySelector(".invitation");
 const roundWinner = document.querySelector(".rule");
+const choiceContainer = document.querySelector(".choice-display");
 const choice = document.querySelector(".choice");
+const context = document.createElement("p");
+choiceContainer.appendChild(context);
+
+
 
 let humanScore = 0;
 let computerScore = 0;
@@ -32,6 +37,7 @@ function playGame() {
             const computerChoice = getComputerChoice();
             const result = playRound(playerChoice, computerChoice);
             round++
+            updateDisplay(result, playerChoice, computerChoice);
         });
     });
 }
@@ -53,5 +59,28 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+function updateDisplay(result, playerChoice, computerChoice) {
+
+    const choiceDisplay =
+    `Computer chose ${CAP(computerChoice)} & Player chose ${CAP(playerChoice)}`;
+    
+    roundNumber.textContent = `Round [${round}]`;
+    playerScoreDisplay.textContent = `Player: ${humanScore}`;
+    compScoreDisplay.textContent = `Computer: ${computerScore}`;
+
+    if (result === "draw") {
+        choice.textContent = `Both chose ${CAP(computerChoice)}`;
+        context.textContent = "No One Wins";
+        roundWinner.textContent = `It's a Draw!`;
+    } else if (result === "computer") {
+        choice.textContent = `${choiceDisplay}`;
+        context.textContent = `${CAP(computerChoice)} beats ${CAP(playerChoice)}`;
+        roundWinner.textContent = "Computer Wins the Round!";
+    } else {
+        choice.textContent = `${choiceDisplay}`;
+        context.textContent = `${CAP(playerChoice)} beats ${CAP(computerChoice)}`;
+        roundWinner.textContent = "Player Wins the Round!";
+    }
+}
 
 playGame();
