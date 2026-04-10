@@ -16,20 +16,18 @@ let isGameActive = true;
 const CAP = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 function getComputerChoice() {
-    
     const choice = Math.floor(Math.random() * 3);
     switch (choice) {
         case 0:
-        return "rock";
+            return "rock";
         case 1:
-        return "paper";
+            return "paper";
         default:
-        return "scissors";
+            return "scissors";
     }
 }
 
 function playGame() {
-
     playerChoices.forEach((choice) => {
         choice.addEventListener("click", () => {
             if (!isGameActive) {
@@ -47,16 +45,13 @@ function playGame() {
 }
 
 function playRound(humanChoice, computerChoice) {
-        
     if (humanChoice === computerChoice) {
         return "draw";
-
     } else if ((humanChoice === "rock" && computerChoice === "paper")
         || (humanChoice === "paper" && computerChoice === "scissors")
         || (humanChoice === "scissors" && computerChoice === "rock")) {
-         ++computerScore;
+        ++computerScore;
         return "computer";
-
     } else {
         ++humanScore;
         return "human";
@@ -64,10 +59,9 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function updateDisplay(result, playerChoice, computerChoice) {
-
     const choiceDisplay =
-    `Computer chose ${CAP(computerChoice)} & Player chose ${CAP(playerChoice)}`;
-    
+        `Computer chose ${CAP(computerChoice)} & Player chose ${CAP(playerChoice)}`;
+
     roundNumber.textContent = `Round [${round}]`;
     playerScoreDisplay.textContent = `Player: ${humanScore}`;
     compScoreDisplay.textContent = `Computer: ${computerScore}`;
@@ -88,15 +82,18 @@ function updateDisplay(result, playerChoice, computerChoice) {
 }
 
 function checkGameOver() {
-
     if (round < 5) return;
 
     isGameActive = false;
-
     let finalMessage = "";
-    if (humanScore > computerScore) finalMessage = "You Won!";
-    else if (computerScore > humanScore) finalMessage = "You Lost!";
-    else finalMessage = "It's a Tie!";
+
+    if (humanScore > computerScore) {
+        finalMessage = "You Won!";
+    } else if (computerScore > humanScore) {
+        finalMessage = "You Lost!";
+    } else {
+        finalMessage = "It's a Tie!";
+    }
 
     roundNumber.textContent = "Game Over";
     roundWinner.textContent = `${finalMessage}`;
@@ -105,7 +102,6 @@ function checkGameOver() {
 }
 
 function resetGame() {
-
     computerScore = 0;
     humanScore = 0;
     round = 0;
